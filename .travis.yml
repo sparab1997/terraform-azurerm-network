@@ -29,3 +29,17 @@ jobs:
       script:
       - docker build --build-arg BUILD_TERRAFORM_VERSION=${TERRAFORM_VERSION} --build-arg BUILD_ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID --build-arg BUILD_ARM_CLIENT_ID=$ARM_CLIENT_ID --build-arg BUILD_ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET --build-arg BUILD_ARM_TENANT_ID=$ARM_TENANT_ID -t ${IMAGE_NAME} .
       - docker run ${IMAGE_NAME} rake full
+
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.8'
+  displayName: 'Install Python 3.8'
+- script: pip install checkov
+  displayName: 'Install Checkov'
+- script: checkov -d <directory> --bc-api-key <055f59b2-833c-4ca9-a4a2-5f1b07d0a90b
+>::<C0apEk/7J84/ewJjYP2cR1l7I9Q=> --repo-id <sparab1997
+/
+terraform-azurerm-network> --branch <branch>
+  displayName: 'Scan with Prisma Cloud'
+  env:
+    PRISMA_API_URL: <app.ind.prismacloud.io>
